@@ -1,0 +1,61 @@
+directory: ~/Music/beet-managed
+library: ~/Music/beet-data/musiclib.db
+import:
+  move: yes
+  write: yes
+
+musicbrainz:
+  genre: yes
+  extra_tags: [year, catalognum, country, media, label]
+
+# defined plugins
+plugins: chroma fetchart embedart lyrics discogs inline
+
+# support multi-disc
+paths:
+  default: $albumartist/$album%aunique{}/%if{$multidisc,Disc $disc/}$track $title
+  comp: Compilations/$album%aunique{}/%if{$multidisc,Disc $disc/}$track $title
+
+item_fields:
+  multidisc: 1 if disctotal > 1 else 0
+
+# add encoded type, from here: https://github.com/beetbox/beets/issues/2610#issuecomment-325514673
+album_fields:
+  format: |
+    formatList = []
+    for item in items:
+      formatList.append(item.format)
+    return formatList
+
+# enable audio fingerprinting
+chroma:
+  auto: yes
+
+acoustid:
+  apikey: fqIB0OFnFD
+
+# enable fetching album art (requires pillow python lib)
+fetchart:
+  auto: yes
+  cautious: true
+  quality: 75
+  high_resolution: yes
+  store_source: yes
+  enforce_ratio: 0.5%
+  maxwidth: 1600
+  cover_format: PNG
+
+# embed the downloaded art in the files and remove the file
+embedart:
+  auto: yes
+  quality: 75
+  remove_art_file: yes
+
+# download and embed lyrics
+lyrics:
+  auto: yes
+
+# add another matching source
+discogs:
+  user_token: bWupyuqGKEbRrHvFMJGVrycVLVNdQfiwXQTYOpex
+  index_tracks: yes
