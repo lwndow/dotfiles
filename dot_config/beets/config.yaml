@@ -32,7 +32,7 @@ chroma:
   auto: yes
 
 acoustid:
-  apikey: fqIB0OFnFD
+  apikey: {{ onepasswordRead "op://personal/acoustid/password" }}
 
 # enable fetching album art (requires pillow python lib)
 fetchart:
@@ -57,5 +57,5 @@ lyrics:
 
 # add another matching source
 discogs:
-  user_token: bWupyuqGKEbRrHvFMJGVrycVLVNdQfiwXQTYOpex
+  user_token: {{ onepasswordRead "op://personal/discogs/user_token" }}
   index_tracks: yes
