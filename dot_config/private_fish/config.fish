@@ -15,8 +15,9 @@ if status is-interactive
     # subl command
     if test -d "/Applications/Sublime Text.app/Contents/SharedSupport/bin"
         set --prepend PATH "/Applications/Sublime Text.app/Contents/SharedSupport/bin"
+        set -x EDITOR "subl"
     end
-    
+
     # zoxide
     if test -x /opt/homebrew/bin/zoxide
         zoxide init fish | source
