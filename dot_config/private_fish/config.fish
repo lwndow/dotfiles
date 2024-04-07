@@ -5,10 +5,12 @@ if status is-interactive
         set starship_bin_path /opt/homebrew/bin/starship
         set zoxide_bin_path /opt/homebrew/bin/zoxide
         set subl_test_path "/Applications/Sublime Text.app/Contents/SharedSupport/bin"
+        set fnm_bin_path /opt/homebrew/bin/fnm
     case Linux
         set starship_bin_path /usr/bin/starship
         set zoxide_bin_path /usr/bin/zoxide
         set subl_test_path /usr/bin/subl
+        set fnm_bin_path /usr/bin/fnm
     end
 
     # homebrew
@@ -24,13 +26,18 @@ if status is-interactive
         pyenv virtualenv-init - | source
     end
 
+    # fnm
+    if test -x $fnm_bin_path
+        fnm env --use-on-cd | source
+    end
+
     # subl command
     if test -d $subl_test_path
         set --prepend PATH $subl_test_path
-        set -x EDITOR "subl"
+        set -x EDITOR "subl -w"
     end
     if test -x $subl_test_path
-        set -x EDITOR "subl"
+        set -x EDITOR "subl -w"
     end
 
     # zoxide
